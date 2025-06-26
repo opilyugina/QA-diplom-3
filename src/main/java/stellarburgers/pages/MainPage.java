@@ -9,9 +9,9 @@ public class MainPage extends BasePage {
     public static final String MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site/";
     public static final By LOGIN_BUTTON = By.xpath("//button[text()='Войти в аккаунт']");
     public static final By PERSONAL_CABINET_BUTTON = By.xpath("//p[text()='Личный Кабинет']");
-    private static final By CONSTRUCTOR_BUTTON = By.xpath("//p[text()='Конструктор']");
+    public static final By CONSTRUCTOR_BUTTON = By.xpath("//p[text()='Конструктор']");
+    public static final By MODAL_OVERLAY = By.cssSelector(".Modal_modal_overlay__x2ZCr");
     public static final By PLACE_ORDER_BUTTON = By.xpath("//button[contains(text(),'Оформить заказ')]");
-    private static final By MODAL_OVERLAY = By.cssSelector(".Modal_modal_overlay__x2ZCr");
 
     public MainPage(WebDriver driver) {
         super(driver);

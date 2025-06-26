@@ -3,13 +3,13 @@ package stellarburgers;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static stellarburgers.pages.MainPage.MAIN_PAGE_URL;
-
-import stellarburgers.util.AuthorizedBaseTest;
 import stellarburgers.pages.MainPage;
 import stellarburgers.pages.ProfilePage;
+import stellarburgers.util.AuthorizedBaseTest;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static stellarburgers.pages.MainPage.MAIN_PAGE_URL;
 
 @DisplayName("Тесты личного кабинета")
 public class PersonalCabinetTests extends AuthorizedBaseTest {
@@ -24,8 +24,7 @@ public class PersonalCabinetTests extends AuthorizedBaseTest {
     @Description("Происходит переход из личного кабинета на главную страницу через кнопку 'Конструктор'")
     public void goFromCabinetToConstructorTest() {
         openPersonalCabinet();
-        ProfilePage profilePage = new ProfilePage(driver);
-        profilePage.clickConstructor();
+        new ProfilePage(driver).clickConstructor();
         assertTrue(
                 "Не произошел возврат на главную через конструктор",
                 driver.getCurrentUrl().contains(MAIN_PAGE_URL)
@@ -37,8 +36,7 @@ public class PersonalCabinetTests extends AuthorizedBaseTest {
     @Description("Происходит переход из личного кабинета на главную страницу через логотип")
     public void goFromCabinetToMainLogoTest() {
         openPersonalCabinet();
-        ProfilePage profilePage = new ProfilePage(driver);
-        profilePage.clickLogo();
+        new ProfilePage(driver).clickLogo();
         assertTrue(
                 "Не произошел возврат на главную через логотип",
                 driver.getCurrentUrl().contains(MAIN_PAGE_URL)
@@ -61,8 +59,10 @@ public class PersonalCabinetTests extends AuthorizedBaseTest {
     @Description("Пользователь может выйти из аккаунта")
     public void logoutTest() {
         openPersonalCabinet();
-        ProfilePage profilePage = new ProfilePage(driver);
-        profilePage.clickExit();
-        assertTrue(driver.findElement(ProfilePage.EXIT_BUTTON).isDisplayed());
+        new ProfilePage(driver).clickExit();
+
+        wait.until(driver -> !driver.getCurrentUrl().contains("/account"));
+
+        assertFalse("После выхода пользователь остался в личном кабинете: " + driver.getCurrentUrl(), driver.getCurrentUrl().contains("/account"));
     }
 }

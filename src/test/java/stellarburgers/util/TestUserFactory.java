@@ -1,20 +1,21 @@
 package stellarburgers.util;
 
+import com.github.javafaker.Faker;
 import stellarburgers.TestUser;
-import java.util.UUID;
 
 public class TestUserFactory {
+    private static final Faker faker = new Faker();
+
     public static TestUser createUniqueUser() {
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String name = "Тест" + uuid.substring(0, 5);
-        String email = "user" + uuid.substring(0, 8) + "@test.ru";
-        String password = "test" + uuid.substring(0, 3);
+        String name = faker.name().firstName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password(6, 10);
         return new TestUser(email, password, name);
     }
+
     public static TestUser createShortPasswordUser() {
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String name = "Тест" + uuid.substring(0, 5);
-        String email = "user" + uuid.substring(0, 8) + "@test.ru";
+        String name = faker.name().firstName();
+        String email = faker.internet().emailAddress();
         String password = "123";
         return new TestUser(email, password, name);
     }

@@ -9,22 +9,23 @@ import static io.restassured.RestAssured.given;
 public class APIUserClient {
     private static final String BASE_URL = "https://stellarburgers.nomoreparties.site/api/auth";
 
-    public static String registerUser(TestUser user) {
-        Response response = given()
+    public static Response registerUser(TestUser user) {
+        return given()
                 .contentType(ContentType.JSON)
                 .body(user)
                 .post(BASE_URL + "/register");
-        if (response.statusCode() == 200 && response.jsonPath().getBoolean("success")) {
-            return response.jsonPath().getString("accessToken");
-        }
-        throw new RuntimeException("Не удалось создать пользователя через API: " + response.asString());
     }
 
-    public static void deleteUser(String accessToken) {
-        given()
+    public static Response deleteUser(String accessToken) {
+        return given()
                 .header("Authorization", accessToken)
-                .delete(BASE_URL + "/user")
-                .then()
-                .statusCode(202);
+                .delete(BASE_URL + "/user");
+    }
+
+    public static Response loginUser(TestUser user) {
+        return given()
+                .contentType(ContentType.JSON)
+                .body(user)
+                .post(BASE_URL + "/login");
     }
 }

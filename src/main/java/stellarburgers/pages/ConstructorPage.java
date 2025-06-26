@@ -14,11 +14,10 @@ public class ConstructorPage extends BasePage {
         super(driver);
     }
 
-    @Step("Переход на вкладку '{tabName}'")
+    @Step("Переход на вкладку: {tabName}")
     public void goToTab(String tabName) {
         if (!isTabActive(tabName)) {
-            By locator = getTabLocator(tabName);
-            click(locator);
+            click(getTabLocator(tabName));
         }
     }
 
@@ -31,7 +30,7 @@ public class ConstructorPage extends BasePage {
         }
     }
 
-    @Step("Получить активную вкладку")
+    @Step("Получение текста активной вкладки")
     public String getActiveTabText() {
         return getText(ACTIVE_TAB);
     }

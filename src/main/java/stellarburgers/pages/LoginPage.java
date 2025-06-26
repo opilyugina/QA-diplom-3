@@ -17,14 +17,20 @@ public class LoginPage extends BasePage {
 
     @Step("Ввод e-mail: {email}")
     public void setEmail(String email) {
-        clear(EMAIL_INPUT);
+        waitVisible(EMAIL_INPUT);
         type(EMAIL_INPUT, email);
     }
 
     @Step("Ввод пароля: {password}")
     public void setPassword(String password) {
-        clear(PASSWORD_INPUT);
+        waitVisible(PASSWORD_INPUT);
         type(PASSWORD_INPUT, password);
+    }
+
+    @Step("Клик по кнопке входа")
+    public void clickLoginButton() {
+        waitVisible(LOGIN_BUTTON);
+        click(LOGIN_BUTTON);
     }
 
     @Step("Переход на форму регистрации")
@@ -37,5 +43,9 @@ public class LoginPage extends BasePage {
     public void goToForgotPassword() {
         waitVisible(FORGOT_PASSWORD_LINK);
         click(FORGOT_PASSWORD_LINK);
+    }
+
+    public boolean isLoginButtonVisible() {
+        return isVisible(LOGIN_BUTTON);
     }
 }

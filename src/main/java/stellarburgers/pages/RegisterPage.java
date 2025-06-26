@@ -18,19 +18,19 @@ public class RegisterPage extends BasePage {
 
     @Step("Ввод имени: {name}")
     public void setName(String name) {
-        clear(NAME_INPUT);
+        waitVisible(NAME_INPUT);
         type(NAME_INPUT, name);
     }
 
     @Step("Ввод e-mail: {email}")
     public void setEmail(String email) {
-        clear(EMAIL_INPUT);
+        waitVisible(EMAIL_INPUT);
         type(EMAIL_INPUT, email);
     }
 
     @Step("Ввод пароля: {password}")
     public void setPassword(String password) {
-        clear(PASSWORD_INPUT);
+        waitVisible(PASSWORD_INPUT);
         type(PASSWORD_INPUT, password);
     }
 
@@ -42,7 +42,10 @@ public class RegisterPage extends BasePage {
 
     @Step("Получить текст ошибки")
     public String getErrorMessage() {
-        return getText(ERROR_MESSAGE);
+        if (isVisible(ERROR_MESSAGE)) {
+            return getText(ERROR_MESSAGE);
+        }
+        return "";
     }
 
     @Step("Переход к форме логина через ссылку 'Войти'")

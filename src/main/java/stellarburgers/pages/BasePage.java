@@ -12,7 +12,7 @@ public abstract class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     protected void click(By locator) {
@@ -20,12 +20,12 @@ public abstract class BasePage {
     }
 
     protected void clear(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         driver.findElement(locator).clear();
     }
 
     protected void type(By locator, String text) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        driver.findElement(locator).clear();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).clear();
         driver.findElement(locator).sendKeys(text);
     }
 
@@ -33,7 +33,16 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
     }
 
-    protected void waitVisible(By locator) {
+    public void waitVisible(By locator) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected boolean isVisible(By locator) {
+        try {
+            waitVisible(locator);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
