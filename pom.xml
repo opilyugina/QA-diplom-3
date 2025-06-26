@@ -24,6 +24,7 @@
     <lombok.version>1.18.34</lombok.version>
     <jackson.version>2.17.2</jackson.version>
     <allure.results.directory>target/allure-results</allure.results.directory>
+    <javafaker.version>1.0.2</javafaker.version>
   </properties>
 
   <dependencies>
@@ -90,6 +91,12 @@
       <artifactId>jackson-annotations</artifactId>
       <version>${jackson.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>${javafaker.version}</version>
     </dependency>
   </dependencies>
 
